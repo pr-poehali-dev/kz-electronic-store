@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import { Product, formatPrice } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
 import Icon from "@/components/ui/icon";
 import { toast } from "sonner";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const { addItem } = useCart();
+  const { t } = useLanguage();
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     addItem(product);
-    toast.success("Добавлено в корзину", { description: product.name });
+    toast.success(t("card.added"), { description: product.name });
   };
 
   return (
@@ -51,7 +53,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             className="w-full h-10 rounded-xl bg-brand-blue hover:bg-blue-700 text-white font-semibold flex items-center justify-center gap-2 transition"
           >
             <Icon name="ShoppingCart" size={16} />
-            В корзину
+            {t("card.addToCart")}
           </button>
         </div>
       </div>
